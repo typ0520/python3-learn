@@ -53,3 +53,5 @@ MANIFEST
 .project
 .pydevproject
 .idea/
+python3-webapp/.vscode/
+__pycache__
