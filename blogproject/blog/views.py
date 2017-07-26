@@ -21,7 +21,7 @@ def json2(request):
     response_data['code'] = 1
     #response_data['post_list'] = serializers.serialize('json', post_list)
 
-    data = [item.to_dict() for item in post_list]
+    data = [lambda obj: obj.__dict__ for item in post_list]
     response_data['post_list'] = data
 
     return JsonResponse(response_data)
