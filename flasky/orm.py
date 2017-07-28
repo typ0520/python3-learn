@@ -4,15 +4,25 @@
 
 import os
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_script import Manager,Shell
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate, MigrateCommand
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite') 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app)
 
+manager = Manager(app)
+db = SQLAlchemy(app)
+migrate = Migrate(app ,db)
+manager.add_command('db', MigrateCommand)
+
+def make_shell_context():
+	return dict(app=app, db=db, User=User, Role=Role)
+manager.add_command('shell', Shell(make_context=make_shell_context))
 
 class Role(db.Model):
 	__tablename__ = 'roles'
@@ -34,5 +44,12 @@ class User(db.Model):
 	def __repr__(self):
 		return '<User %r>' % self.username
 
+@app.route('/')
+def index():
+	user = User.query.filter_by(username='david').first()
+	print(user)
+	return 'name2: %s' % user.username
+
 if __name__ == '__main__':
-	app.run(debug=True)
+	#app.run(debug=True)
+	manager.run()
