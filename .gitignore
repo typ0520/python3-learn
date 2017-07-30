@@ -1,5 +1,7 @@
 *.py[cod]
 
+flasky/venv
+
 test.db
 test.txt
 sina.html
