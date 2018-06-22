@@ -10,7 +10,7 @@ def quicksort(arr):
         else:
             high.append(val)
     # low = [i for i in arr[1:] if val <= base ]
-    high = [i for i in arr[1:] if val > base ]
+    # high = [i for i in arr[1:] if val > base ]
     return quicksort(low) + [base] + quicksort(high)
 
 if __name__ == "__main__":
