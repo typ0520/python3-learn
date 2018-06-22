@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
 
+
 def user_logging(level):
 	print('user_logging: level %s' % level)
+
 	def decorator(func):
 		print('decorator: level %s' % level)
+
 		def wrapper(*args, **kwargs):
 			print("%s is running, level:%s" % (func.__name__, level))
-			return func(*args,**kwargs)
-		return wrapper	
+			return func(*args, **kwargs)
+		return wrapper
 	return decorator
+
 
 @user_logging(level="warn")
 def foo(name, age=None, height=None):
-	print('i am %s,args=%d,hieght=%d' % (name,age,height))
-
-foo('typ0520',age=100,height=200)
+	print('i am %s,args=%d,hieght=%d' % (name, age, height))
 
 
+foo('typ0520', age=100, height=200)
 
 
 class Foo(object):
@@ -28,9 +31,11 @@ class Foo(object):
 		self._func()
 		print('class decorator ending')
 
+
 @Foo
 def bar():
 	print('bar')
+
 
 bar()
 
@@ -44,7 +49,9 @@ def logged(func):
     	return func(*args, **kwargs)
     return with_logging
 
+
 from functools import wraps
+
 
 def logged2(func):
 	@wraps(func)
@@ -55,17 +62,20 @@ def logged2(func):
 	return with_logging
 
 # 函数
+
+
 @logged
 def f(x):
    """does some math"""
    return x + x * x
 
+
 f(100)
+
 
 @logged2
 def test_f(x):
 	return x + x * x
 
+
 test_f(200)
-
-

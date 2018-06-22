@@ -26,9 +26,6 @@ def foo2():
 
 foo2()
 
-
-
-
 def user_logging3(func):
 	print('user_logging3')
 	def wrapper(name):

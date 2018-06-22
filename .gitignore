@@ -2,6 +2,7 @@
 
 flasky/venv
 
+.vscode/
 test.db
 test.txt
 sina.html
